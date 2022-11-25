@@ -1,3 +1,5 @@
+// Data
+
 const api = axios.create({
     baseURL: 'https://api.themoviedb.org/3/',
     headers: {
@@ -8,6 +10,31 @@ const api = axios.create({
     },
   });
   
+  function likedMoviesList() {
+    const item = JSON.parse(localStorage.getItem('liked_movies'));
+    let movies;
+
+    if (item) {
+      movies = item;
+    } else {
+      movies = {};
+    }
+
+    return movies;
+  }
+
+  function likeMovie(movie) {
+
+    const likedMovies = likedMoviesList();
+
+    if (likedMovies[movie.id]) {
+      likedMovies[movie.id] = undefined;
+    } else {
+      likedMovies[movie.id] = movie;
+    }
+    localStorage.setItem('liked_movies', JSON.stringify(likedMovies));
+  }
+
   // Utils
   
   const lazyLoader = new IntersectionObserver((entries) => {
@@ -37,9 +64,7 @@ const api = axios.create({
     movies.forEach(movie => {
       const movieContainer = document.createElement('div');
       movieContainer.classList.add('movie-container');
-      movieContainer.addEventListener('click', () => {
-        location.hash = '#movie=' + movie.id;
-      });
+     
   
       const movieImg = document.createElement('img');
       movieImg.classList.add('movie-img');
@@ -49,6 +74,9 @@ const api = axios.create({
         lazyLoad ? 'data-img': 'src',
         'https://image.tmdb.org/t/p/w300' + movie.poster_path,
       );
+      movieImg.addEventListener('click', () => {
+        location.hash = '#movie=' + movie.id;
+      });
       movieImg.addEventListener('error', () => {
         movieImg.setAttribute(
           'src',
@@ -56,12 +84,19 @@ const api = axios.create({
         );
       });
 
+      const movieBtn = document.createElement('button');
+      movieBtn.classList.add('movie-btn');
+      movieBtn.addEventListener('click', () => {
+        movieBtn.classList.toggle('movie-btn--liked');
+        likeMovie(movie);
+      });
 
       if (lazyLoad) {
       lazyLoader.observe(movieImg);
       }
 
       movieContainer.appendChild(movieImg);
+      movieContainer.appendChild(movieBtn);
       container.appendChild(movieContainer);
     });
   }

@@ -27,12 +27,15 @@ const api = axios.create({
 
     const likedMovies = likedMoviesList();
 
+    console.log(likedMovies)
+
     if (likedMovies[movie.id]) {
       likedMovies[movie.id] = undefined;
     } else {
       likedMovies[movie.id] = movie;
     }
     localStorage.setItem('liked_movies', JSON.stringify(likedMovies));
+
   }
 
   // Utils
@@ -86,9 +89,11 @@ const api = axios.create({
 
       const movieBtn = document.createElement('button');
       movieBtn.classList.add('movie-btn');
+      likedMoviesList()[movie.id] && movieBtn.classList.add('movie-btn--liked');
       movieBtn.addEventListener('click', () => {
         movieBtn.classList.toggle('movie-btn--liked');
         likeMovie(movie);
+        getLikedMovies();
       });
 
       if (lazyLoad) {
@@ -305,3 +310,12 @@ const api = axios.create({
   
     createMovies(relatedMovies, relatedMoviesContainer);
   }         
+
+  function getLikedMovies() {
+    const likedMovies = likedMoviesList();
+    const moviesArray = Object.values(likedMovies);
+
+    createMovies(moviesArray, likedMoviesListArticle, { lazyLoad: true, clean: true });
+    
+    console.log(likedMovies)
+  }

@@ -11,7 +11,19 @@ const api = axios.create({
   
   // Utils
   
-  function createMovies(movies, container) {
+  const lazyLoader = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      console.log(entry.target.setAttribute);
+
+      const url = entry.target.getAttribute('data-img')
+      console.log(entry.target)
+      //entry.target.setAttribute('src', url)
+
+    });
+  });
+
+
+  function createMovies(movies, container, lazyLoad = false) {
     container.innerHTML = '';
   
     movies.forEach(movie => {
@@ -24,11 +36,23 @@ const api = axios.create({
       const movieImg = document.createElement('img');
       movieImg.classList.add('movie-img');
       movieImg.setAttribute('alt', movie.title);
+      
       movieImg.setAttribute(
-        'src',
+        lazyLoad ? 'data-img': 'src',
         'https://image.tmdb.org/t/p/w300' + movie.poster_path,
       );
-  
+      movieImg.addEventListener('error', () => {
+        movieImg.setAttribute(
+          'src',
+          `https://via.placeholder.com/300x450/5c218a/ffffff?text=${movie.title}`
+        );
+      });
+
+
+      if (lazyLoad) {
+      lazyLoader.observe(movieImg);
+      }
+
       movieContainer.appendChild(movieImg);
       container.appendChild(movieContainer);
     });
@@ -62,7 +86,7 @@ const api = axios.create({
     const movies = data.results;
     console.log(movies)
   
-    createMovies(movies, trendingMoviesPreviewList);
+    createMovies(movies, trendingMoviesPreviewList, true);
   }
   
   async function getCategegoriesPreview() {
@@ -80,7 +104,7 @@ const api = axios.create({
     });
     const movies = data.results;
   
-    createMovies(movies, genericSection);
+    createMovies(movies, genericSection, true);
   }
   
   async function getMoviesBySearch(query) {

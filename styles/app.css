@@ -2,13 +2,13 @@
 * { box-sizing: border-box; }
 
 :root {
-  --purple-light-1: #FBFAFB;
-  --purple-light-2: #EEEAF2;
-  --purple-medium-1: #AA83C8;
-  --purple-medium-2: #8B48BF;
-  --purple-medium-3: #5C218A;
-  --purple-dark-1: #3E0F64;
-  --purple-dark-2: #2A0646;
+  --purple-light-1: #d5ffff;
+  --purple-light-2: #70d2cb;
+  --purple-medium-1: #d5ffff;
+  --purple-medium-2: #9ce0db;
+  --purple-medium-3: #5dc1b9;
+  --purple-dark-1: #338b85;
+  --purple-dark-2: #005954;
 
   --yellow: #EECC75;
   --green: #CAD297;
@@ -45,7 +45,7 @@ h1, h2, h3 {
 }
 
 h1, h2 {
-  font-size: 24px;
+  font-size: 28px;
   color: var(--purple-dark-2);
   font-family: var(--font-family-titles);
   font-weight: var(--font-weight-title1);
@@ -54,7 +54,7 @@ h1, h2 {
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 24px;
   color: var(--purple-dark-1);
   font-weight: var(--font-weight-title2);
 }
@@ -63,11 +63,12 @@ h3 {
   color: var(--purple-dark-2);
   font-weight: var(--font-weight-text2);
   font-size: 16px;
+  
 }
 
 input {
   background-color: var(--purple-light-2);
-  color: var(--purple-medium-2);
+  color: var(--purple-light-1);
   border: none;
   font-size: 18px;
   padding-left: 16px;
@@ -149,7 +150,7 @@ button {
 
 .movie-btn--liked {
   background-color: var(--purple-light-2);
-  box-shadow: 0px 0px 10px 2px var(--purple-dark-1);
+  box-shadow: 0px 0px 10px 2px var(--purple-light-1);
 }
 
 .movie-btn--liked::before {
@@ -307,14 +308,14 @@ button {
 #id35 { --idColor: var(--lightBlue); }
 #id80 { --idColor: var(--darkBlue); }
 #id99 { --idColor: var(--purple-dark-1); }
-#id18 { --idColor: var(--purple-medium-1); }
+#id18 { --idColor: var(--lightBlue); }
 #id10751 { --idColor: var(--yellow); }
 #id14 { --idColor: var(--red); }
 #id36 { --idColor: var(--green); }
 #id27 { --idColor: var(--lightBlue); }
 #id10402 { --idColor: var(--darkBlue); }
 #id9648 { --idColor: var(--purple-dark-1); }
-#id10749 { --idColor: var(--purple-medium-1); }
+#id10749 { --idColor: var(--purple-medium-3); }
 #id878 { --idColor: var(--yellow); }
 #id10770 { --idColor: var(--red); }
 #id53 { --idColor: var(--green); }
@@ -411,7 +412,7 @@ button {
 /* Footer */
 footer {
   background-color: var(--purple-medium-3);
-  color: var(--purple-light-2);
+  color: var(--red);
   text-align: center;
   height: 48px;
   display: flex;
